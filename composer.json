@@ -15,7 +15,7 @@
     "require": {
         "php": ">=5.3.2",
         "symfony/framework-bundle": "*",
-        "symfony/validator": "2.1.*"
+        "symfony/validator": "*"
     },
     "autoload": {
         "psr-0": { 
