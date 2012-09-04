@@ -1,27 +1,22 @@
 {
     "name": "oh/date-extra-validator-bundle",
     "type": "symfony-bundle",
-    "description": "A minimum and maximum date validator for Symfony2",
-    "keywords": ["symfony2", "validator", "bundle"],
+    "description": "Symfony2 Date Validator for Minimum and Maximum Constraints",
+    "keywords": ["symfony2", "validator", "bundle", "date"],
     "homepage": "https://github.com/ollieLtd/OhDateExtraValidatorBundle",
-    "license": "MIT",
-	"version": "1.0.0",
     "authors": [
-        {
-            "name": "Ollie Harridge",
-            "email": "code@oll.ie"
-        }
+        {"name": "Ollie Harridge", "email": "code@oll.ie"}
     ],
     "require": {
-        "php": ">=5.3.2",
+        "php": ">=5.3.3",
         "symfony/framework-bundle": "*",
         "symfony/validator": "*"
     },
-    "autoload": {
-        "psr-0": { 
-			"Oh\\DateExtraValidatorBundle": ""
-		}
-    },
     "minimum-stability": "dev",
-    "target-dir": "Oh/DateExtraValidatorBundle"
+    "autoload": {
+        "psr-0": {
+            "Oh\\DateExtraValidatorBundle": ""
+        }
+    },
+    "target-dir" : "Oh/DateExtraValidatorBundle"
 }
