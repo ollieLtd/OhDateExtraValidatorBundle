@@ -10,7 +10,8 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/framework-bundle": "*",
-        "symfony/validator": "*"
+        "symfony/validator": "*",
+        "symfony/form": "*"
     },
     "minimum-stability": "dev",
     "autoload": {
