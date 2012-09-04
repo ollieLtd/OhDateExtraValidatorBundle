@@ -22,5 +22,6 @@
 			"Oh\\DateExtraValidatorBundle": ""
 		}
     },
+    "minimum-stability": "dev",
     "target-dir": "Oh/DateExtraValidatorBundle"
 }
