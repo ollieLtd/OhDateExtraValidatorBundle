@@ -71,12 +71,14 @@ Each message can use `{{ min }}`, `{{ max }}` and `{{ value }}` so you can for e
 The format of the date in the error messages can be a normal date string or an [IntlDateFormatter](http://uk.php.net/manual/en/class.intldateformatter.php) date.
 
     /**
-     * @OhAssert\DateExtra(format='Y-m-d',min="-1 year", max="+1 year")
+     * @OhAssert\DateExtra(format="Y-m-d",min="-1 year", max="+1 year")
      * or
      * @OhAssert\DateExtra(intlDateFormat=\IntlDateFormatter::LONG, intlTimeFormat=\IntlDateFormatter::LONG, min="-1 year", max="+1 year")
      */
 
 For the UK timezone Europe/London the 2 examples above would output "You cannot choose a date before 2011-09-04." and "You cannot choose a date before September 4, 2011 8:10:34 PM GMT+01:00."
+
+You can also set the timezone manually by specifying it in the constructor (eg `timezone="Europe/London"`)
 
 ### Valid values
 
