@@ -84,6 +84,10 @@ You can also set the timezone manually by specifying it in the constructor (eg `
 
 The class can handle most date formats; `\DateTime`, `array('year'=>2012,'month'=>9,'day'=>4)`, unix timestamp (eg `1346789811`), string (eg 2012-09-04) or an object that returns one of these values in __toString()
 
+Tests
+-------
+[![Build Status](https://secure.travis-ci.org/ollieLtd/OhDateExtraValidatorBundle.png)](http://travis-ci.org/ollieLtd/OhDateExtraValidatorBundle)
+
 
 Credits
 -------
