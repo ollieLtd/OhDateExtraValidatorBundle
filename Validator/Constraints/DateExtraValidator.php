@@ -42,7 +42,8 @@ class DateExtraValidator extends ConstraintValidator
         } elseif(is_numeric($value)) {
             $timestamp = $value;
         } elseif(is_string($value) && strtotime($value) !== false) {
-            $timestamp = strtotime($value);
+            $dateTime = new \DateTime($value, new \DateTimeZone($this->constraint->getTimezone()));
+            $timestamp = $dateTime->getTimestamp();
         }  elseif(is_string($value)) {
             $this->context->addViolation($constraint->invalidMessage);
             return;
@@ -99,7 +100,10 @@ class DateExtraValidator extends ConstraintValidator
         }
         // otherwise assume its a string
         else {
+
             $dateObj = new \DateTime('@'.$timestamp);
+            // the timestamp is always UTC so we have to set the timezone seperately
+            $dateObj->setTimezone(new \DateTimeZone($this->constraint->getTimezone()));
 
             $formatted = $dateObj->format($this->constraint->getFormat());
         }

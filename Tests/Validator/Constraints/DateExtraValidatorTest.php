@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Oh\DateExtraValidatorBundle\Tests\Validator\Constraints;
 
 use Oh\DateExtraValidatorBundle\Validator\Constraints\DateExtra;
@@ -157,9 +148,8 @@ class DateExtraValidatorTest extends \PHPUnit_Framework_TestCase
         
         $constraint = new DateExtra(array(
             'format' => 'd-m-Y H:i:s',
-            'max' => '2012-10-01'
+            'max' => '2012-10-01',
         ));
- 
         
         $date = '2012-11-01';
         
@@ -167,12 +157,10 @@ class DateExtraValidatorTest extends \PHPUnit_Framework_TestCase
             ->method('addViolation')
             ->with('You cannot choose a date after {{ max }}.', array(
                 '{{ min }}' => '13-12-1901 20:45:54', 
-                '{{ max }}' => '30-09-2012 23:00:00',
-                '{{ value }}' => '01-11-2012 00:00:00'));   
+                '{{ max }}' => '01-10-2012 00:00:00',
+                '{{ value }}' => '01-11-2012 00:00:00'));
         
         $this->validator->validate($date, $constraint);
-        
-        
         
     }
     
@@ -251,5 +239,28 @@ class DateExtraValidatorTest extends \PHPUnit_Framework_TestCase
         
     }
 
+    public function testTimezone()
+    {
+        $constraint = new DateExtra(array(
+            'format' => 'd-m-Y H:i:s',
+            'min' => '2012-10-01 01:00:00',
+            'timezone' => 'UTC'
+        ));
+        
+        $dateObj = new \DateTime('2012-10-01 01:00:00', new \DateTimeZone('Europe/London'));
+
+        $date = $dateObj->getTimestamp();
+        
+        // 1 hour difference
+        $this->context->expects($this->once())
+            ->method('addViolation')
+            ->with('You cannot choose a date before {{ min }}.', array(
+                '{{ min }}' => '01-10-2012 01:00:00',
+                '{{ max }}' => '19-01-2038 03:14:07',
+                '{{ value }}' => '01-10-2012 00:00:00'));
+        
+        $this->validator->validate($date, $constraint);
+        
+    }
 
 }

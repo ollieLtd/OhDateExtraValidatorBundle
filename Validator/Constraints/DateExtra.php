@@ -66,7 +66,7 @@ class DateExtra extends Constraint
      * @return float
      */
     public function getMinTimestamp() {
-        return strtotime($this->min);
+        return $this->getTimestampForDateString($this->min);
     }
     
     /**
@@ -74,7 +74,17 @@ class DateExtra extends Constraint
      * @return float
      */
     public function getMaxTimestamp() {
-        return strtotime($this->max);
+        return $this->getTimestampForDateString($this->max);
+    }
+    
+    /**
+     * This is to just standardise the way we get the timestamps
+     * @param type $date
+     */
+    public function getTimestampForDateString($date) {
+        $dateObj = new \DateTime($date, new \DateTimeZone($this->getTimezone()));
+
+        return $dateObj->getTimestamp();
     }
     
     /**
