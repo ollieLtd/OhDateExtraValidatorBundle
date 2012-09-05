@@ -84,7 +84,7 @@ class DateExtra extends Constraint
     public function getTimestampForDateString($date) {
         $dateObj = new \DateTime($date, new \DateTimeZone($this->getTimezone()));
 
-        return $dateObj->getTimestamp();
+        return $dateObj->format('U');
     }
     
     /**

@@ -35,15 +35,30 @@ class DateExtraValidator extends ConstraintValidator
         
         //convert value to timestamp
         if($value instanceOf \DateTime) {
-            $timestamp = $value->getTimestamp();
+            $timestamp = $value->format('U');
         } elseif(is_array($value)) {
             $array = array_merge($constraint->array, $value);
             $timestamp = mktime($array['year'], $array['month'], $array['day'], $array['hour'], $array['minute'], $array['second']);
         } elseif(is_numeric($value)) {
             $timestamp = $value;
-        } elseif(is_string($value) && strtotime($value) !== false) {
-            $dateTime = new \DateTime($value, new \DateTimeZone($this->constraint->getTimezone()));
-            $timestamp = $dateTime->getTimestamp();
+        } elseif(is_string($value)) {
+
+            // I do it this way to avoid Exceptions
+            $dateTime = date_create($value);
+            
+            if(!$dateTime) {
+                $this->context->addViolation($constraint->invalidMessage);
+                return;
+            }
+            
+            $dateTime->setTimezone(new \DateTimeZone($this->constraint->getTimezone()));
+
+            $timestamp = $dateTime->format('U');
+            
+            if(!$timestamp) {
+                $this->context->addViolation($constraint->invalidMessage);
+                return;
+            }
         }  elseif(is_string($value)) {
             $this->context->addViolation($constraint->invalidMessage);
             return;

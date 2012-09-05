@@ -262,5 +262,24 @@ class DateExtraValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validator->validate($date, $constraint);
         
     }
+    
+    public function testFarFutureValues() {
+        $constraint = new DateExtra(array(
+            'max' => '2012-10-01 01:00:00',
+            'format' => 'd-m-Y H:i:s',
+        ));
+        
+        $date = '2055-10-01';
+        
+        // 1 hour difference
+        $this->context->expects($this->once())
+            ->method('addViolation')
+            ->with('You cannot choose a date after {{ max }}.', array(
+                '{{ min }}' => '13-12-1901 20:45:54',
+                '{{ max }}' => '01-10-2012 01:00:00',
+                '{{ value }}' => '01-10-2055 00:00:00'));
+        
+        $this->validator->validate($date, $constraint);
+    }
 
 }
