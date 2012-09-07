@@ -59,10 +59,7 @@ class DateExtraValidator extends ConstraintValidator
                 $this->context->addViolation($constraint->invalidMessage);
                 return;
             }
-        }  elseif(is_string($value)) {
-            $this->context->addViolation($constraint->invalidMessage);
-            return;
-        }  else {
+        } else {
             throw new UnexpectedTypeException($value, 'one of "Valid Date String / DateTime Object / Array / Timestamp"');
         }
         
