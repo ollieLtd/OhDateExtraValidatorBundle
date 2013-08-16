@@ -52,7 +52,12 @@ class DateExtraValidator extends ConstraintValidator
             }
             
             $dateTime->setTimezone(new \DateTimeZone($this->constraint->getTimezone()));
-
+            
+            if (!$dateTime->getTimestamp()) {
+                $this->context->addViolation($constraint->invalidMessage);
+                return;
+            }
+            
             $timestamp = $dateTime->format('U');
             
             if(!$timestamp) {
